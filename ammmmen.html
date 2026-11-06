@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#160d18">
+<title>مفاجأتي إلك ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#160d18;color:#fff;font-family:Tahoma,Arial,sans-serif;overflow:hidden}
+.screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;position:relative;z-index:1}
+h1{font-size:clamp(25px,6vw,38px);line-height:1.6;margin:0 0 24px}
+p{font-size:clamp(18px,4.5vw,23px);line-height:1.9;margin:10px 0}
+button{border:0;border-radius:16px;background:#ffb6c1;color:#29101e;font-weight:bold;font-size:20px;padding:14px 28px;cursor:pointer;box-shadow:0 5px 18px #ff69b455}
+button:active{transform:scale(.97)}
+#particles{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.particle{position:absolute;user-select:none;animation:float linear infinite;opacity:.9}
+@keyframes float{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(var(--x),var(--y)) rotate(18deg)}100%{transform:translate(0,0) rotate(0)}}
+.hidden{display:none!important}
+#letterScreen{background:#fff0f5;color:#54213b;justify-content:flex-start;overflow:auto;min-height:100vh;padding:22px 16px 35px}
+#letterScreen h1{color:#9b2455;font-size:26px;margin:4px 0 15px}
+.letter{background:white;border-radius:18px;padding:20px;max-width:720px;width:100%;text-align:right;line-height:2.1;font-size:18px;box-shadow:0 5px 22px #9b245522;white-space:pre-line}
+#letterScreen button{margin-top:18px}
+.small{font-size:14px;opacity:.8;margin-top:18px}
+</style>
+</head>
+<body>
+<div id="particles" aria-hidden="true"></div>
+
+<section class="screen" id="firstScreen">
+  <h1>هل انتي فتومتي؟ ❤️</h1>
+  <button id="yesButton">اييي ❤️</button>
+  <div class="small">اضغطي على الزر حتى تبدى المفاجأة 🌹</div>
+</section>
+
+<section class="screen hidden" id="loveScreen">
+  <h1>أحبج هواية ❤️🌹</h1>
+  <p>أريدج تبقين فرحتي دائماً 💗</p>
+</section>
+
+<section class="screen hidden" id="stickerScreen">
+  <h1>إنتِ أحلى حكاية ❤️</h1>
+  <p>المسي القلوب والورود وحركيها 🌹</p>
+  <button id="letterButton">افتح رسالتي ❤️</button>
+</section>
+
+<section class="screen hidden" id="letterScreen">
+  <h1>💐 رسالة من القلب إلك 💐</h1>
+  <div class="letter" id="letterText"></div>
+  <button id="backButton">رجوع للقلوب ❤️</button>
+</section>
+
+<script>
+const stickers=["❤️","💗","💕","💖","🌹","🌷","💐","أحبج","أريدج","🥰"];
+const colors=["#ffb6c1","#ff69b4","#ffffff","#ffd1dc"];
+const particles=document.getElementById("particles");
+function makeParticles(count){
+  particles.innerHTML="";
+  for(let i=0;i<count;i++){
+    const el=document.createElement("span");
+    el.className="particle";
+    el.textContent=stickers[Math.floor(Math.random()*stickers.length)];
+    el.style.left=Math.random()*94+"%";
+    el.style.top=Math.random()*92+"%";
+    el.style.color=colors[Math.floor(Math.random()*colors.length)];
+    el.style.fontSize=(17+Math.random()*17)+"px";
+    el.style.setProperty("--x",(Math.random()*100-50)+"px");
+    el.style.setProperty("--y",(Math.random()*100-50)+"px");
+    el.style.animationDuration=(3+Math.random()*5)+"s";
+    el.style.animationDelay=(-Math.random()*5)+"s";
+    particles.appendChild(el);
+  }
+}
+const screens=["firstScreen","loveScreen","stickerScreen","letterScreen"];
+function show(id){
+  screens.forEach(s=>document.getElementById(s).classList.toggle("hidden",s!==id));
+}
+function buildLetter(){
+  let text="إلى أحلى إنسانة بحياتي ❤️🌹\n\n";
+  text+="أريدج تعرفين شكد وجودج يفرحني، وشكد كلامج وابتسامتج يخلّون يومي أحلى.\n\n";
+  text+="أتمنى تبقين دائماً بخير وراحة بال، وتتحقق كل أمنياتج.\n\n";
+  text+="يمكن ما أعرف أوصف كل اللي بداخلي بالكلام، بس أعرف إنج شخص عزيز وغالي، وأتمنى أكون سبب ابتسامة وفرحة إلج.\n\n";
+  text+="الله يحفظج ويسعد قلبج، ويبعد عنج كل حزن وتعب، ويرزقج أيام حلوة على قد طيبة قلبج.\n\n";
+  text+="والله احبج ❤️💞\n".repeat(100);
+  text+="\n";
+  for(let i=101;i<=200;i++) text+=`${i}. والله أموت عليج ❤️\n`;
+  text+="\nكل عام وإنتِ فرحتي، وكل يوم وإنتِ بخير. ❤️🌹";
+  return text;
+}
+document.getElementById("letterText").textContent=buildLetter();
+document.getElementById("yesButton").addEventListener("click",()=>{
+  show("loveScreen");makeParticles(65);
+  setTimeout(()=>{if(!document.getElementById("loveScreen").classList.contains("hidden")){show("stickerScreen");makeParticles(75);}},30000);
+});
+document.getElementById("letterButton").addEventListener("click",()=>{show("letterScreen");particles.innerHTML="";});
+document.getElementById("backButton").addEventListener("click",()=>{show("stickerScreen");makeParticles(75);});
+makeParticles(45);
+</script>
+</body>
+</html>
